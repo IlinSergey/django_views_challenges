@@ -6,6 +6,7 @@ from django_views_routing_homework.views.level_1.a_welcome_user import \
 from django_views_routing_homework.views.level_1.b_bye_user import bye_user_view
 from django_views_routing_homework.views.level_1.c_baned_username import \
     is_username_banned_view
+from django_views_routing_homework.views.level_1.d_user_info import get_user_info_view
 from django_views_routing_homework.views.level_2.a_user_info_by_username import \
     get_user_info_by_username_view
 from django_views_routing_homework.views.level_2.c_product_type import \
@@ -35,4 +36,6 @@ urlpatterns = [
     path('text/generate/', generate_file_with_text_view),
     path('bye/', bye_user_view),
     path('bye', bye_user_view),
+    path('user-info/<int:user_id>/', get_user_info_view),
+    path('user-info/<int:user_id>', get_user_info_view),
 ]
