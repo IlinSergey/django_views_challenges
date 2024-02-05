@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 
 """
 У нас есть вьюха bye_user_view, но она не привязана ни к какому пути.
@@ -9,6 +9,6 @@ from django.http import HttpResponse
 """
 
 
-def bye_user_view(request):
-    bye_message = 'Bye, user'
+def bye_user_view(request: HttpRequest) -> HttpResponse:
+    bye_message = 'Bye, user!'
     return HttpResponse(bye_message)
