@@ -1,5 +1,4 @@
-from django.http import JsonResponse
-
+from django.http import HttpRequest, JsonResponse
 
 """
 Вьюха get_products_view должна возвращать список продуктов, если обратиться по адресу http://127.0.0.1:8000/products/
@@ -36,8 +35,9 @@ PRODUCTS = [
 ]
 
 
-def get_products_view(request):
-    products = []
-    # код писать тут
-
+def get_products_view(request: HttpRequest) -> JsonResponse:
+    if 'type' in request.GET:
+        products = [product for product in PRODUCTS if product['type'] == request.GET['type']]
+    else:
+        products = PRODUCTS
     return JsonResponse(data=products, safe=False)
