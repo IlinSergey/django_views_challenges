@@ -1,6 +1,5 @@
 from django.http import HttpRequest, HttpResponse
 
-
 """
 Вьюха greet_user_in_different_languages_view приветствует пользователя в зависимости
 от имени и языка в пути, если язык не русский и не английский, то приветствуем просто смайликом.
