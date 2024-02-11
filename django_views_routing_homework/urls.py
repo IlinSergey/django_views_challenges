@@ -13,7 +13,8 @@ from django_views_routing_homework.views.level_1.e_month_title import \
     get_month_title_view
 from django_views_routing_homework.views.level_2.a_user_info_by_username import \
     get_user_info_by_username_view
-from django_views_routing_homework.views.level_2.b_greet_user_language import greet_user_in_different_languages_view
+from django_views_routing_homework.views.level_2.b_greet_user_language import \
+    greet_user_in_different_languages_view
 from django_views_routing_homework.views.level_2.c_product_type import \
     get_products_view
 from django_views_routing_homework.views.level_2.d_authorization import (

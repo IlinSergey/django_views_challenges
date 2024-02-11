@@ -7,7 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 """
 В этой задаче у нас сразу две вьюхи.
-authorization_view - просто отрисовывает страниц авторизации по ссылке http://127.0.0.1:8000/authorization/ . В ней мы ничего не меняем
+authorization_view - просто отрисовывает страниц авторизации по ссылке http://127.0.0.1:8000/authorization/ .
+В ней мы ничего не меняем
 process_authorization_view - обрабатывает заполненные данные на странице авторизации
 и возвращает статус об успехе или неуспехе. С ней мы и будем работать
 
@@ -39,7 +40,7 @@ USERNAME_TO_PASSWORD_MAPPER = {
 def process_authorization_view(request: HttpRequest) -> JsonResponse:
     if request.method == 'POST':
         data = json.loads(request.body)
-        if data['username'] in USERNAME_TO_PASSWORD_MAPPER and data['password'] == USERNAME_TO_PASSWORD_MAPPER[data['username']]:
+        if data['username'] in USERNAME_TO_PASSWORD_MAPPER and data['password'] == USERNAME_TO_PASSWORD_MAPPER[data['username']]:  # noqa: E501
             return JsonResponse(data={}, status=200)
         else:
             return JsonResponse(data={}, status=403)

@@ -7,7 +7,7 @@ import pytest
     ('monster', 200, {'id': '3', 'age': 17}),
     ('any_username', 404, {'error': 'There is no user info'}),
     ])
-def test__get_user_info_by_username_view(client, username, status_code, expected_json):
+def test__get_user_info_by_username_view__success(client, username, status_code, expected_json):
     response = client.get(f'/user-info-by-username/{username}/')
     assert response.status_code == status_code
     assert response.json() == expected_json
