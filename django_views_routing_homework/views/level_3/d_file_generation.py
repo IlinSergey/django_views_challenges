@@ -14,7 +14,7 @@
 скачивать сгенерированный файл.
 """
 
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest, HttpResponse
 
 
 def generate_file_with_text_view(request: HttpRequest) -> HttpResponse:

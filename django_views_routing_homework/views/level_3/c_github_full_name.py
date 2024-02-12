@@ -9,7 +9,7 @@
 - если пользователь на Гитхабе есть, но имя у него не указано, верните None вместо имени
 """
 
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest, HttpResponse
 
 
 def fetch_name_from_github_view(request: HttpRequest, github_username: str) -> HttpResponse:

@@ -18,7 +18,7 @@
 Когда будете писать код, не забывайте о читаемости, поддерживаемости и модульности.
 """
 
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest, HttpResponse
 
 
 def validate_user_data_view(request: HttpRequest) -> HttpResponse:
