@@ -14,8 +14,33 @@
 скачивать сгенерированный файл.
 """
 
+import json
+import random
+import string
+
 from django.http import HttpRequest, HttpResponse
 
 
+def generate_text(length: int) -> str:
+    text = ''.join(random.choice(string.ascii_letters) for _ in range(length))
+    return text
+
+
 def generate_file_with_text_view(request: HttpRequest) -> HttpResponse:
-    pass  # код писать тут
+    lenght = request.GET.get('length', None)
+    if lenght is not None:
+        try:
+            lenght = int(lenght)
+            if lenght > 1000 or lenght < 1:
+                return HttpResponse(content=json.dumps({}), status=403)
+        except ValueError:
+            return HttpResponse(content=json.dumps({}), status=403)
+        file_content = generate_text(length=lenght)
+        response = HttpResponse(
+            content=file_content,
+            content_type='text/plain',
+            headers={'Content-Disposition': 'attachment; filename="file.txt"'},
+            status=200,
+        )
+        return response
+    return HttpResponse(status=403, content=json.dumps({}))
