@@ -18,8 +18,22 @@
 Когда будете писать код, не забывайте о читаемости, поддерживаемости и модульности.
 """
 
-from django.http import HttpRequest, HttpResponse
+import json
+
+from django.http import HttpRequest, HttpResponse, HttpResponseNotAllowed
+
+from django_views_routing_homework.views.level_3.pydantic_model import UserData
 
 
 def validate_user_data_view(request: HttpRequest) -> HttpResponse:
-    pass  # код писать тут
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        if data and (len(data) == 3 or len(data) == 4):
+            try:
+                UserData(**data)
+                return HttpResponse(status=200, content=json.dumps({'is_valid': True}))
+            except ValueError:
+                return HttpResponse(status=200, content=json.dumps({'is_valid': False}))
+        return HttpResponse(status=400)
+    else:
+        return HttpResponseNotAllowed(permitted_methods=['POST'])
