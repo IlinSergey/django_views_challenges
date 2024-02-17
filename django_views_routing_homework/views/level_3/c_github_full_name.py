@@ -11,22 +11,32 @@
 """
 
 import json
+import time
 
 import requests  # type: ignore [import-untyped]
 from django.http import HttpRequest, HttpResponse
 
 
 def get_response_from_github_api(github_username: str) -> dict | None:
-    try:
-        response = requests.get(
-            f'https://api.github.com/users/{github_username}'
-        )
-        if response.status_code == 200:
-            return response.json()
-        else:
+    max_retries = 2
+    delay_seconds = 0.5
+    for _ in range(max_retries):
+        try:
+            response = requests.get(
+                f'https://api.github.com/users/{github_username}'
+            )
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return None
+        except ConnectionError:
+            time.sleep(delay_seconds)
+        except requests.exceptions.Timeout:
+            time.sleep(delay_seconds)
+        except requests.exceptions.TooManyRedirects:
             return None
-    except Exception:
-        return None
+        except requests.exceptions.RequestException:
+            return None
 
 
 def fetch_name_from_github_view(request: HttpRequest, github_username: str) -> HttpResponse:

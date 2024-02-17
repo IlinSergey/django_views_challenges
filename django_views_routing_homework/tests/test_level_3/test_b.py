@@ -81,6 +81,11 @@ def test__validate_user_data_view__not_valid_json(client, data):
     assert result.status_code == 400
 
 
+def test__validate_user_data_view__not_json(client):
+    result = client.post('/user/validate/', data='not_json', content_type='application/json')
+    assert result.status_code == 400
+
+
 def test__validate_user_data_view__not_valid_method(client):
     result = client.get('/user/validate/')
     assert result.status_code == 405

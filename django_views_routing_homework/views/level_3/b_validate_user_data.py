@@ -27,8 +27,11 @@ from django_views_routing_homework.views.level_3.pydantic_model import UserData
 
 def validate_user_data_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
-        data = json.loads(request.body)
-        if data and (len(data) == 3 or len(data) == 4):
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return HttpResponse(status=400)
+        if data and len(data) in (3, 4):
             try:
                 UserData(**data)
                 return HttpResponse(status=200, content=json.dumps({'is_valid': True}))
